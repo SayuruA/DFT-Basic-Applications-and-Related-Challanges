@@ -27,11 +27,13 @@ figure;
 %xlabel('Time (s)');
 %ylabel('Amplitude');
 
-sgnls = transpose( reshape( signal(1:133), [133 1]));% Samples divided into subsets of 128
+K = 135;%sample size
+L = floor(length(s_N)/ K);%number of sets of size K
+sgnls = transpose( reshape( signal(1:K*L), [K L]));% Samples divided into 'L' number of subsets of size 'K'
 X_N  = fft(sgnls, [], 2);
-%X_Avg = sum(X_N, 1)/ size(X_N, 1);
+
 
 stem(abs(X_N(1,:))); % Magnitude
-title('Averaged DFT');
+title(['DFT for K = ',num2str(K)]);
 xlabel('Frequency Index');
 ylabel('Magnitude');
