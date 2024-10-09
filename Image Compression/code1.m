@@ -1,38 +1,29 @@
 clc;
 clear;
 
-imageName = 
-Barb = load("Selected-Images\Parrots.mat").B;
+image = "house";
+qualityLevel = 97.5;
+path = "Selected-Images\\";  
+% get the required image matrix
+% matrices of different image files are stored under different variable
+% names inside their '.mat' files.
+imageName = sprintf("%s%s.mat", path, image);
+Im = load(imageName);
+fieldname = fieldnames(Im);
+Im = Im.(fieldname{1});
 
-[M, N] = size(Barb); % the number of rows and columns of the image
-qualityLevel = 50;
-
-compressedBarb = zeros([M,N]);
-totalZeros = 0;
-
-for row = 1: 8: M
-    
-    for col = 1: 8: N
-        
-        imageBlock = Barb(row: row+7, col: col+7);
-        [compressedBlock, Zeros] = compress(imageBlock, qualityLevel);
-        compressedBarb(row: row+7, col: col+7) = compressedBlock;
-        totalZeros = totalZeros + Zeros;
-        
-    end
-end
-compressedBarb = uint8(round(compressedBarb));
-zeroRatio = round(totalZeros/ numel(Barb) * 100, 1);
+% compress the image and get the percentage of zeros
+[compressedIm, zerosPercentage] = compressImage(Im, qualityLevel);
 
 
 figure;
 subplot(1, 2, 1);
-imshow(Barb);
+imshow(Im);
 title("The Original Image")
 
 subplot(1, 2, 2);
-imshow(compressedBarb);
-title(sprintf('The Compressed, quality level = %d, zeros: %.2f%%', qualityLevel, zeroRatio));
+imshow(compressedIm);
+title(sprintf('The Compressed, quality level = %d, zeros: %.2f%%', qualityLevel, zerosPercentage));
 
 
 
