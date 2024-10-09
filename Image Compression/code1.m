@@ -3,6 +3,11 @@ clear;
 
 
 Barb = load("Selected-Images\barbara.mat").A;
+[M, N] = size(Barb);
+compressedBarb = zeros([M,N]);
+
+
+
 testBlock = Barb(129:136, 161:168);
 formattedBlock = double(testBlock);
 B = formattedBlock -128; % Levelled off by subtracting 128

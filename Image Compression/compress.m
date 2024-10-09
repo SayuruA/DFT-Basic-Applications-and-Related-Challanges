@@ -1,4 +1,4 @@
-function B_tilde = compress(block_8by8, qualityLevel)
+function [B_tilde, Zeros] = compress(block_8by8, qualityLevel)
 % ** This function compresses an 8 by 8 matrix according to the 'qualityLevel'
 
 % cast the matrix into double    
@@ -14,5 +14,6 @@ Qn = Q_mat(qualityLevel);
 S = round(C./Qn);
 R = S.*Qn;
 B_tilde = idct2(R) + 128;
+Zeros = numel(S) - nnz(S);
 
 end
