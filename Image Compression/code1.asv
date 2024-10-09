@@ -3,17 +3,43 @@ clear;
 
 
 Barb = load("Selected-Images\barbara.mat").A;
-[M, N] = size(Barb);
+% Barb = [125 134 137 139 138 138 141 142;
+%      113 119 126 134 139 141 144 149;
+%      80 95 103 106 114 127 141 147;
+%      63 65 53 62 75 86 108 130;
+%      93 80 60 33 35 35 52 69;
+%      126 108 88 74 53 45 35 32;
+%      130 116 90 96 62 63 55 49;
+%      115 80 61 65 68 88 68 75];
+[M, N] = size(Barb); % the number of rows and columns of the image
+qualityLevel = 20;
+
 compressedBarb = zeros([M,N]);
+totalZeros = 0;
+
+for row = 1: 8: M
+    
+    for col = 1: 8: N
+        
+        imageBlock = Barb(row: row+7, col: col+7);
+        [compressedBlock, Zeros] = compress(imageBlock, qualityLevel);
+        compressedBarb(row: row+7, col: col+7) = compressedBlock;
+        totalZeros = totalZeros + Zeros;
+        
+    end
+end
+compressedBarb = uint8(round(compressedBarb));
+zeroRatio = totalZeros/ numel(Barb) * 100;
+
+
+figure;
+subplot(1, 2, 1);
+imshow(Barb);
+title("The Original Image")
+
+subplot(1, 2, 2);
+imshow(compressedBarb);
+title(["The Compressed, quality level ",qualityLevel, ", zeros: "])
 
 
 
-testBlock = Barb(129:136, 161:168);
-formattedBlock = double(testBlock);
-B = formattedBlock -128; % Levelled off by subtracting 128
-C = dct2(B);
-
-
-Qn = Q_mat(80); % Quantization Matrix
-
-S = round(C./Qn);
