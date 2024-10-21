@@ -1,5 +1,8 @@
 # Image Compression using DCT
 
+![OutputImage](Selected-Images/Output.png)
+
+
 This project demonstrates image compression using the **Discrete Cosine Transform (DCT)**. The implementation allows for compressing images by controlling the quality level and visualizing the results.
 
 ## How to Run the Code
