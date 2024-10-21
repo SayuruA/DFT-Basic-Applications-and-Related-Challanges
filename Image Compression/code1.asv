@@ -2,7 +2,7 @@ clc;
 clear;
 
 image = "town";
-qualityLevel = 99;
+qualityLevel = 98;
 path = "Selected-Images\\";  
 % get the required image matrix
 % matrices of different image files are stored under different variable
