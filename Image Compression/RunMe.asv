@@ -1,8 +1,8 @@
 clc;
 clear;
 
-image = "town";
-qualityLevel = 98;
+image = "barbara";
+qualityLevel = 80;
 path = "Selected-Images\\";  
 % get the required image matrix
 % matrices of different image files are stored under different variable
@@ -19,11 +19,11 @@ psnr = PSNR(compressedIm, Im);
 text = sprintf("Peak Signal to Noise Ration = %0.2f",round(psnr,2));
 disp(text);
 figure;
-subplot(1, 3, 1);
+subplot(1, 2, 1);
 imshow(Im);
 title("The Original Image")
 
-subplot(1, 3, 2);
+subplot(1, 2, 2);
 imshow(compressedIm);
 title(sprintf('The Compressed, quality level = %d, zeros: %.2f%%', qualityLevel, zerosPercentage));
 
@@ -35,6 +35,7 @@ title(sprintf('The Compressed, quality level = %d, zeros: %.2f%%', qualityLevel,
 %     [compressedIm, zerosPercentage] = compressImage(Im, qualityLevel);
 %     zero_vals = [zero_vals, zerosPercentage];
 % end
+% fi
 % subplot(1, 3, 3);
 % plot(qua_levels, zero_vals);
 % title("Number of zeros vs. Quality level");
